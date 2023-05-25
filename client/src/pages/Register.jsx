@@ -15,7 +15,7 @@ const Register = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
-const {user, dispatch}=useAuth()
+const {dispatch}=useAuth()
 
 
 
@@ -46,7 +46,7 @@ navigate('/',{replace:true})
     }
     
       return (
-        <div className="h-screen bg-teal-400 flex justify-center">
+        <div className="h-screen bg-teal-400 flex justify-center p-5">
     
          
               <form onSubmit={handleSubmit} className="flex flex-col gap-12 max-w-[450px] w-full mt-20 bg-white p-5 rounded-2xl self-start">

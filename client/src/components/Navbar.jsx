@@ -6,9 +6,9 @@ import { useAuth } from "../hooks/useAuth";
 const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
   const [menu, setMenu] = useState(false);
-  const {dispatch}= useAuth()
+  const {dispatch,user}= useAuth()
 
-  console.log(menu);
+
   useEffect(() => {
     const observe = () => {
       if (scrollY > 20) {
@@ -58,33 +58,36 @@ localStorage.removeItem('user')
           <span className="w-full bg-black h-[1px]"></span>
           <span className="w-full bg-black h-[1px]"></span>
         </div>
+        {user&&<p className="md:hidden absolute top-8 fonted capitalize text-xl px-3 py-2 rounded-md">{user.username}</p>}
         <Logo />
 
         <ul
-          className={`flex items-center md:gap-5 text-center flex-col md:flex-row md:h-auto px-10 md:px-0 duration-300 ${
+          className={`flex items-center md:gap-2  lg:gap-5 text-center flex-col md:flex-row md:h-auto px-10 md:px-0 duration-300 ${
             menu ? "h-[400px]" : "h-0"
           } ${menu ? "py-4" : "py-0"}  overflow-hidden`}
         >
           <li className="li">
-            <Link  className="link" to={"/cat=art"}>art</Link>
+            <Link  className="link" to={`/?cat=art`}>art</Link>
           </li>
           <li className="li">
-            <Link className="link" to={"/cat=science"}>science</Link>
+            <Link className="link" to={`/?cat=science`}>science</Link>
           </li>
           <li className="li">
-            <Link className="link" to={"/cat=technology"}>technology</Link>
+            <Link className="link" to={`/?cat=technology`}>technology</Link>
           </li>
           <li className="li">
-            <Link className="link" to={"/cat=cinema"}>cinema</Link>
+            <Link className="link" to={`/?cat=cinema`}>cinema</Link>
           </li>
           <li className="li">
-            <Link className="link" to={"/cat=design"}>design</Link>
+            <Link className="link" to={`/?cat=design`}>design</Link>
           </li>
+        
           <li className="li">
-            <Link className="link" to={"/cat=food"}>food</Link>
+            <Link className="link" to={`/?cat=food`}>food</Link>
           </li>
-          <li className="hidden lg:block">Name</li>
-          <li onClick={handleLogout} className="py-3 li">Logout</li>
+          <li className='hidden lg:block  bg-gray-500 w-[1px] h-5'></li>
+         { user ?(<><li className=" hidden md:block capitalize bg-teal-300 text-white px-3 py-2 rounded-md">{user?.username}</li>
+          <li onClick={handleLogout} className="py-3 li">Logout</li></>) : <Link className="li py-3" to={'/login'}>Login</Link>}
           <li className="mt-2 lg:mt-0 lg:w-12 md:h-12 w-full h-12 flex mx-auto items-center justify-center
            bg-teal-200 rounded-full border border-white duration-300 hover:border-teal-500
             hover:bg-white hover:text-teal-500">

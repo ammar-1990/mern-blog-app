@@ -2,6 +2,7 @@
 import {
   createBrowserRouter,
   RouterProvider,
+  useLocation,
 }from 'react-router-dom'
 import Home from './pages/Home'
 import Register from './pages/Register'
@@ -10,6 +11,7 @@ import Layout from './components/Layout'
 import Single from './pages/Single'
 import Write from './pages/Write'
 import AuthRequire from './components/AuthRequire'
+import { useEffect } from 'react'
 
 
 
@@ -17,6 +19,7 @@ import AuthRequire from './components/AuthRequire'
 
 function App() {
 
+ 
 
   const router = createBrowserRouter([
     {
@@ -25,7 +28,7 @@ function App() {
       children:[
         {
           index:true,
-          element:<AuthRequire><Home /></AuthRequire>
+          element:<Home />
         },
         {
           path:'/post/:id',

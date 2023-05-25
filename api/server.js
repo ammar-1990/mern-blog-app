@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from "mongoose"
 import authRouter from './routes/Auth.js'
+import postsAuth from './routes/Post.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
@@ -21,7 +22,7 @@ mongoose.connect(process.env.MONGO).then(()=>{
 
 }).catch((err)=>{
 console.log(err)
-})
+}) 
 
 
 app.use(express.json())
@@ -31,6 +32,7 @@ app.use(cors({origin:'http://127.0.0.1:5173',credentials:true}))
 
 
 app.use('/api/auth',authRouter)
+app.use('/api/posts',postsAuth)
 
 
 
