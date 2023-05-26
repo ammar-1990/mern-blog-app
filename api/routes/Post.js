@@ -7,9 +7,9 @@ const router = express.Router()
 
 router.get('/',getPosts)
 router.get('/:id',getPost)
-router.post('/',addPost)
+router.post('/',jwtVerify,addPost)
 router.delete('/:id',jwtVerify,deletePost)
-router.patch('/:id',jwtVerify,updatePost)
+router.put('/:id',jwtVerify,updatePost)
 
 
 export default router

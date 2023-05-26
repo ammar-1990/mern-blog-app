@@ -55,11 +55,13 @@ export const getPost = async (req,res,next)=>{
 //add a post
 export const addPost = async (req,res,next)=>{
     
-    const {title,desc,img,cat} = req.body
-    if(!title || !desc || !img || !cat) return next(createError(405,'enter all information'))
+    const {title,value,imageUrl,cat} = req.body
+
+    if(!title || !value || !imageUrl || !cat) return next(createError(405,'enter all information'))
+    
 
     try {
-        const post = await Post.create({title,desc,img,cat})
+        const post = await Post.create({title,desc:value,img:imageUrl,cat,uid:req.id})
 
         res.status(201).json(post)
     } catch (error) {
@@ -70,10 +72,19 @@ export const addPost = async (req,res,next)=>{
 
 //delete a post
 export const deletePost = async (req,res,next)=>{
-const id = req.body.params
+const id = req.params.id 
+
+
 if(!mongoose.Types.ObjectId.isValid(id)) return next(createError(404,'invalid post id'))
+
     try {
-        const post = Post.findByIdAndDelete(id)
+
+        const toCheck =await Post.findById(id)
+     
+
+        if(req.id!==toCheck.uid.toString())return next(createError(401,'you are not authorized to delete this post'))
+
+        const post =await Post.findByIdAndDelete(id)
 
         if(!post) return next(createError(404,'no such post'))
 
@@ -88,9 +99,12 @@ if(!mongoose.Types.ObjectId.isValid(id)) return next(createError(404,'invalid po
 //update a post
 export const updatePost = async (req,res,next)=>{
 
-
+    const id = req.params.id
+  const post = req.body
+  console.log(post)
     try {
-        
+      const newPost = await  Post.findByIdAndUpdate(id, post, { new: true })
+      res.status(201).json(newPost)
     } catch (error) {
         next(error)
     }

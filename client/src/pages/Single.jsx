@@ -1,8 +1,11 @@
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import Menue from "../components/Menue";
-import {useParams } from "react-router-dom";
+import {useNavigate, useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
+import { Link } from "react-router-dom";
+import { newAxios } from "../lib/newAXios";
+import DOMPurify from 'dompurify';
 
 
 const Single = () => {
@@ -11,6 +14,18 @@ const Single = () => {
   const id = params.id;
 
   const { data, loading, error } = useFetch(`/posts/${id}`);
+const navigate = useNavigate()
+  const handleDelete=async()=>{
+    try {
+      const res = await newAxios.delete(`/posts/${id}`)
+      console.log(res.data)
+      navigate('/',{replace:true})
+
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
 
 
   if(loading) return <p>Loading...</p>
@@ -36,19 +51,19 @@ const Single = () => {
             <p className="text-gray-500 text-xs">Posted 2 days ago</p>
           </div>
           <div className="flex items-center gap-1">
-            <PencilSquareIcon className="bg-teal-400 text-white w-8 h-8 p-2 rounded-full cursor-pointer hover:bg-teal-600 duration-300" />
-            <TrashIcon className="bg-red-400 text-white w-8 h-8 p-2 rounded-full cursor-pointer hover:bg-red-600 duration-300" />
+         <Link to={`/write?edit=${data?._id}`} state={data}>  <PencilSquareIcon className="bg-teal-400 text-white w-8 h-8 p-2 rounded-full cursor-pointer hover:bg-teal-600 duration-300"  /></Link> 
+            <TrashIcon onClick={handleDelete} className="bg-red-400 text-white w-8 h-8 p-2 rounded-full cursor-pointer hover:bg-red-600 duration-300" />
           </div>
         </div>
         <div className="space-y-2">
           <h1 className="text-3xl">{data?.title}</h1>
-          <p className="text-gray-700 text-justify leading-7">
-           {data?.desc}
-          </p>
+          <p className="text-gray-700 text-justify leading-7" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data?.desc) }} />
+         
+          
         </div>
       </div>
 
-      <Menue />
+      <Menue cat={data?.cat} />
     </div>
   );
 };

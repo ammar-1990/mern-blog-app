@@ -48,7 +48,7 @@ localStorage.removeItem('user')
       } duration-500 shadow-zinc-600`}
     >
       <div
-        className={`flex  p-4 justify-between max-w-[1200px] mx-auto flex-col lg:flex-row relative`}
+        className={`flex  p-4 justify-between max-w-[1000px] mx-auto flex-col lg:flex-row relative`}
       >
         <div
           className="absolute right-8 w-8 h-8 top-10 flex flex-col justify-between cursor-pointer md:hidden"

@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import DOMPurify from 'dompurify'
 
 
 import useFetch from "../hooks/useFetch";
@@ -18,7 +19,7 @@ const {data,loading,error} = useFetch(`/posts${search}`)
 
   return (
     <div className="  mt-10 p-4">
-      {loading && data?.length===0&& <p className=" flex items-center justify-center text-3xl animate-pulse text-gray-500">Loading...</p>}
+      {loading && data?.length===0 || !data && <p className=" flex items-center justify-center text-3xl animate-pulse text-gray-500">Loading...</p>}
       {error&&<p className=" flex items-center justify-center text-3xl  text-red-500">{error.response.data}</p>}
       {data?.length===0 && !loading &&<p>No such blogs</p>}
       {data?.map((el, i) => (
@@ -40,7 +41,7 @@ const {data,loading,error} = useFetch(`/posts${search}`)
           </div>
           <div className="flex-[2] p-4 md:px-14 px-4 flex gap-4 flex-col justify-between">
             <h1 className="capitalize md:text-4xl font-semibold">{el.title}</h1>
-            <p className="text-gray-600 line-clamp-5 text-justify">{el.desc}</p>
+            <p className="text-gray-700 text-justify leading-7" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(el?.desc) }} />
             <button
               onClick={() => navigate(`/post/${el._id}`)}
               className="px-4 py-2 w-fit border-teal-500 text-teal-500 border capitalize duration-300 hover:bg-teal-500 hover:text-gray-700 hover:text-white "

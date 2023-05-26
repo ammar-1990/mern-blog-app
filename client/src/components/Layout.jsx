@@ -17,7 +17,7 @@ window.scrollTo(0,0)
   return (
     <div className="flex flex-col min-h-screen">
         <Navbar />
-        <div className='max-w-[1200px] mx-auto w-full flex-1'>  
+        <div className='max-w-[1000px] mx-auto w-full flex-1'>  
         <Outlet />
         </div>
         <Footer />
