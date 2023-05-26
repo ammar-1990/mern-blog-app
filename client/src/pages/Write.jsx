@@ -3,8 +3,11 @@ import "react-quill/dist/quill.snow.css";
 import { useEffect, useState } from "react";
 import {newAxios} from '../lib/newAXios'
 import { useLocation, useNavigate } from "react-router-dom";
+import {useAuth} from '../hooks/useAuth'
 
 const Write = () => {
+
+  const{user} = useAuth()
   const [loading,setLoading] = useState(false)
   const [error,setError] = useState('')
   const {state} = useLocation()
@@ -15,7 +18,7 @@ const Write = () => {
   const [imageUrl,setImageUrl] = useState(state?.img || '')
 const location = useLocation()
 const navigate = useNavigate()
-
+console.log(imageUrl)
 useEffect(()=>{
 if(!location.search)
 {  setValue('')
@@ -27,9 +30,12 @@ if(!location.search)
     setValue(state?.desc || "")
     setTitle( state?.title || "")
     setCat(state?.cat || "art")
+    setImageUrl(state?.img || '')
 
   }
-},[state])
+
+  console.log(title,value,cat,imageUrl)
+},[location])
 
 
 useEffect(()=>{
@@ -73,14 +79,14 @@ setLoading(true)
 
   if(state){
 
-    const res = await newAxios.put(`/posts/${state._id}`,{title,desc:value,cat,img:imageUrl})
+    const res = await newAxios.put(`/posts/${state._id}`,{title,desc:value,cat,img:imageUrl,username:user.username})
     console.log(res.data)
     navigate(`/post/${state._id}`)
   }
 
   else{
    
-    const res = await newAxios.post('/posts',{title,value,cat,imageUrl})
+    const res = await newAxios.post('/posts',{title,value,cat,imageUrl,username:user.username})
     console.log(res.data)
     navigate(`/post/${res.data._id}`)
   }
@@ -122,7 +128,7 @@ setLoading(true)
           <div className="p-3 flex flex-col gap-4 border border-zinc-300">
             <h1 className="text-gray-600 text-3xl font-bold">Publish</h1>
             <span className="text-gray-600 block">
-              <b>Status:</b> draft
+              <b>Status:</b> for publishment
             </span>
             <span className="text-gray-600 block">
               <b>Visibility:</b> public
@@ -139,14 +145,12 @@ setLoading(true)
             >
               upload image
             </label>
-            <div className="flex w-full justify-between ">
-              <button className="px-4 py-2 w-fit border-teal-500 text-teal-500 border capitalize duration-300 hover:bg-teal-500  hover:text-white">
-                Save as draft
-              </button>
-              <button className="text-white bg-teal-700 px-3 py-1 disabled:bg-gray-400" onClick={handleSubmit} disabled={!title || !value ||!cat ||!imageUrl}>
+          
+            
+              <button className="text-white bg-teal-700 px-3 py-1 py-2 disabled:bg-gray-400" onClick={handleSubmit} disabled={!title || !value ||!cat ||!imageUrl}>
         {loading? 'Loading...' : state ? 'Update' : 'Publish'}
               </button>
-            </div>
+        
             {error&&<p className="text-red-400 py-3 text-xs">{error}</p>}
           </div>
           <div className="p-3 flex flex-col gap-4 border border-zinc-300">

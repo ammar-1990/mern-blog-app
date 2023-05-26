@@ -7,7 +7,8 @@ const PostSchema = new mongoose.Schema({
     desc:{type:String,required:true},
     img:{type:String,required:true},
     cat:{type:String,required:true},
-    uid:{type:mongoose.Schema.Types.ObjectId,ref:'User'}
+    uid:{type:mongoose.Schema.Types.ObjectId,ref:'User'},
+    username:{type:String,required:true}
 },{timestamps:true})
 
 
