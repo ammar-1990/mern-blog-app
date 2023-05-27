@@ -28,7 +28,7 @@ app.use(cookieParser())
 app.use('/api/uploads', express.static('uploads'));
 
 
-app.use(cors({origin:'https://ornate-baklava-4c1bf8.netlify.app/',credentials:true}))
+app.use(cors({origin:'https://ornate-baklava-4c1bf8.netlify.app',credentials:true}))
 mongoose.connect(process.env.MONGO).then(()=>{
 
     console.log('mongodb is connected')
