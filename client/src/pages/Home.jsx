@@ -2,11 +2,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import DOMPurify from 'dompurify'
 
 
+
+
 import useFetch from "../hooks/useFetch";
 const Home = () => {
 
 const {search} = useLocation()
-console.log(location.search)
+
 
 const {data,loading,error} = useFetch(`/posts${search}`)
 

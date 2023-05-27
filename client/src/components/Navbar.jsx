@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 import { useEffect, useState } from "react";
 import { newAxios } from "../lib/newAXios";
@@ -7,6 +7,15 @@ const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
   const [menu, setMenu] = useState(false);
   const {dispatch,user}= useAuth()
+
+const location = useLocation()
+const {search} = useLocation()
+const cat = search?.split('=').pop()
+console.log(cat)
+
+useEffect(()=>{
+  setMenu(false)
+},[location])
 
 
   useEffect(() => {
@@ -66,23 +75,23 @@ localStorage.removeItem('user')
             menu ? "h-[400px]" : "h-0"
           } ${menu ? "py-4" : "py-0"}  overflow-hidden`}
         >
-          <li className="li">
+          <li className={`li ${cat ==='art' && 'border-b-2 border-teal-500'}`}>
             <Link  className="link" to={`/?cat=art`}>art</Link>
           </li>
-          <li className="li">
+          <li className={`li ${cat ==='science' && 'border-b-2 border-teal-500'}`}>
             <Link className="link" to={`/?cat=science`}>science</Link>
           </li>
-          <li className="li">
+          <li className={`li ${cat ==='technology' && 'border-b-2 border-teal-500'}`}>
             <Link className="link" to={`/?cat=technology`}>technology</Link>
           </li>
-          <li className="li">
+          <li className={`li ${cat ==='cinema' && 'border-b-2 border-teal-500'}`}>
             <Link className="link" to={`/?cat=cinema`}>cinema</Link>
           </li>
-          <li className="li">
+          <li className={`li ${cat ==='design' && 'border-b-2 border-teal-500'}`}>
             <Link className="link" to={`/?cat=design`}>design</Link>
           </li>
         
-          <li className="li">
+          <li className={`li ${cat ==='food' && 'border-b-2 border-teal-500'}`}>
             <Link className="link" to={`/?cat=food`}>food</Link>
           </li>
           <li className='hidden lg:block  bg-gray-500 w-[1px] h-5'></li>

@@ -106,7 +106,7 @@ export const updatePost = async (req,res,next)=>{
     const id = req.params.id
     if(!mongoose.Types.ObjectId.isValid(id)) return next(createError(404,'invalid post id'))
   const post = req.body
-  console.log(post)
+
     try {
         const toCheck = await Post.findById(id)
         if(!toCheck) return next(createError(404,"no such post"))

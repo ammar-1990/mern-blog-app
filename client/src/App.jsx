@@ -32,7 +32,7 @@ function App() {
         },
         {
           path:'/post/:id',
-          element:<AuthRequire><Single /></AuthRequire>
+          element:<Single />
         },
         {
           path:'/write',

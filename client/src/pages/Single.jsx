@@ -51,7 +51,7 @@ const navigate = useNavigate()
             <p className="text-gray-500 text-xs">{new Date(data?.createdAt).toLocaleString()}</p>
           </div>
           <div className="flex items-center gap-1">
-         {user._id === data?.uid &&<><Link to={`/write?edit=${data?._id}`} state={data}>  <PencilSquareIcon className="bg-teal-400 text-white w-8 h-8 p-2 rounded-full cursor-pointer hover:bg-teal-600 duration-300"  /></Link> 
+         {user && user._id === data?.uid &&<><Link to={`/write?edit=${data?._id}`} state={data}>  <PencilSquareIcon className="bg-teal-400 text-white w-8 h-8 p-2 rounded-full cursor-pointer hover:bg-teal-600 duration-300"  /></Link> 
             <TrashIcon onClick={handleDelete} className="bg-red-400 text-white w-8 h-8 p-2 rounded-full cursor-pointer hover:bg-red-600 duration-300" /></>}
           </div>
         </div>
