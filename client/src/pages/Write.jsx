@@ -63,7 +63,7 @@ if(image)
       formdata.append('file',image)
   
       const res =await  newAxios.post('/upload',formdata)
-     setImageUrl(`http://localhost:8800/api/uploads/${res.data}`)
+     setImageUrl(`https://blog-api-ndhd.onrender.com/api/uploads/${res.data}`)
     } catch (error) {
       console.log(error)
     }

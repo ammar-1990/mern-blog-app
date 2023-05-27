@@ -3,6 +3,6 @@ import axios from 'axios'
 
 export const newAxios =  axios.create({
 
-    baseURL:'http://localhost:8800/api',
+    baseURL:'https://blog-api-ndhd.onrender.com/api',
     withCredentials:true
 })
