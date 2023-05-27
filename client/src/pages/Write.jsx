@@ -35,6 +35,7 @@ if(!location.search)
   }
 
   console.log(title,value,cat,imageUrl)
+// eslint-disable-next-line react-hooks/exhaustive-deps
 },[location])
 
 
@@ -48,6 +49,7 @@ console.log(imageUrl)
 if(image)
 {setPhoto()}
  
+// eslint-disable-next-line react-hooks/exhaustive-deps
 },[image])
 
 
@@ -147,7 +149,7 @@ setLoading(true)
             </label>
           
             
-              <button className="text-white bg-teal-700 px-3 py-1 py-2 disabled:bg-gray-400" onClick={handleSubmit} disabled={!title || !value ||!cat ||!imageUrl}>
+              <button className="text-white bg-teal-700 px-3  py-2 disabled:bg-gray-400" onClick={handleSubmit} disabled={!title || !value ||!cat ||!imageUrl}>
         {loading? 'Loading...' : state ? 'Update' : 'Publish'}
               </button>
         
